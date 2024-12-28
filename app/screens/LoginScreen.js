@@ -52,7 +52,7 @@ export default function LoginScreen(props) {
       setTimeout(() => {
         setLoading(false);
         // Navigate to BottomTab screen on success
-        props.navigation.navigate("BottomTab");
+        props.navigation.navigate("HomeScreen");
       }, 2000);
     } catch (error) {
       setLoading(false);
