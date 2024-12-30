@@ -52,7 +52,7 @@ export default function LoginScreen(props) {
       setTimeout(() => {
         setLoading(false);
         // Navigate to BottomTab screen on success
-        props.navigation.navigate("HomeScreen");
+        props.navigation.navigate("BottomTab", { screen: "HomeScreen" });
       }, 2000);
     } catch (error) {
       setLoading(false);
@@ -70,7 +70,7 @@ export default function LoginScreen(props) {
             color: Colors.white,
           }}
         >
-          App Logo
+          RawE
         </Text>
       </View>
 

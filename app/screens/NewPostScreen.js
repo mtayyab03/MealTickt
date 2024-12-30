@@ -157,12 +157,12 @@ const NewPostScreen = ({ navigation }) => {
           marginTop: RFPercentage(4),
           alignItems: "center",
           justifyContent: "center",
-          width: RFPercentage(20),
-          height: RFPercentage(20),
+          width: RFPercentage(17),
+          height: RFPercentage(17),
           borderWidth: RFPercentage(0.2),
           borderColor: Colors.stroke,
           backgroundColor: Colors.ligthBlack,
-          borderRadius: RFPercentage(3),
+          borderRadius: RFPercentage(2),
         }}
       >
         {selectedMedia ? (
@@ -368,7 +368,7 @@ const styles = StyleSheet.create({
   },
   description: {
     width: "90%",
-    height: RFPercentage(13),
+    height: RFPercentage(12),
     borderRadius: RFPercentage(1),
     backgroundColor: Colors.ligthBlack,
     paddingHorizontal: RFPercentage(1.5),
@@ -404,13 +404,12 @@ const styles = StyleSheet.create({
   media: {
     width: "100%",
     height: "100%",
-    borderRadius: RFPercentage(3),
+    borderRadius: RFPercentage(2),
   },
   loginbutton: {
     width: "100%",
     justifyContent: "center",
     alignItems: "center",
-    marginTop: RFPercentage(1),
   },
   emailmain: {
     width: "90%",

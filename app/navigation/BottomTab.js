@@ -22,9 +22,6 @@ const Tab = createBottomTabNavigator();
 const SearchScreen = () => {
   return null; // Return null for an empty screen
 };
-const ReelsScreen = () => {
-  return null; // Return null for an empty screen
-};
 const ProfileScreen = () => {
   return null; // Return null for an empty screen
 };
@@ -34,7 +31,7 @@ export default function BottomTab() {
     <Tab.Navigator
       initialRouteName="HomeScreen"
       screenOptions={{
-        tabBarActiveTintColor: Colors.purple,
+        tabBarActiveTintColor: Colors.primary,
         tabBarInactiveTintColor: Colors.white,
         headerShown: false,
         tabBarStyle: {
@@ -77,16 +74,6 @@ export default function BottomTab() {
           tabBarLabel: "Post",
           tabBarIcon: ({ color, size }) => (
             <Ionicons name="add-circle-outline" color={color} size={30} />
-          ),
-        }}
-      />
-      <Tab.Screen
-        name="ReelsScreen"
-        component={ReelsScreen}
-        options={{
-          tabBarLabel: "Reels",
-          tabBarIcon: ({ color, size }) => (
-            <MaterialIcons name="ondemand-video" color={color} size={size} />
           ),
         }}
       />

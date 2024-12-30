@@ -97,7 +97,7 @@ const HomeScreen = ({ navigation }) => {
             color: Colors.white,
           }}
         >
-          App Logo
+          RawE
         </Text>
 
         <TouchableOpacity

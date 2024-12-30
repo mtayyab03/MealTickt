@@ -113,7 +113,7 @@ const SignupScreen = (props) => {
             color: Colors.white,
           }}
         >
-          App Logo
+          RawE
         </Text>
       </View>
 
