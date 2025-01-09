@@ -1,7 +1,6 @@
 import React from "react";
 import { Text, View, StyleSheet } from "react-native";
 import { RFPercentage } from "react-native-responsive-fontsize";
-import { LinearGradient } from "expo-linear-gradient";
 
 //config
 import Colors from "../config/Colors";
@@ -12,8 +11,8 @@ export default function AppButton({ title, buttonColor }) {
     <View
       style={{
         width: "90%",
-        height: RFPercentage(6.5),
-        borderRadius: RFPercentage(1),
+        height: RFPercentage(5.7),
+        borderRadius: RFPercentage(2),
         alignItems: "center",
         justifyContent: "center",
         marginTop: RFPercentage(2),
@@ -26,8 +25,9 @@ export default function AppButton({ title, buttonColor }) {
 }
 const styles = StyleSheet.create({
   buttontext: {
-    color: Colors.white,
-    fontSize: RFPercentage(1.8),
-    fontFamily: FontFamily.semiBold,
+    color: Colors.black32,
+    fontSize: RFPercentage(1.7),
+    fontFamily: FontFamily.bold,
+    marginBottom: RFPercentage(0.4),
   },
 });

@@ -2,12 +2,8 @@ import React from "react";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 
 // Screens
-import SplashScreen from "../screens/SplashScreen";
-import LoginScreen from "../screens/LoginScreen";
-import SignupScreen from "../screens/SignupScreen";
-import HomeScreen from "../screens/HomeScreen";
-import NewPostScreen from "../screens/NewPostScreen";
-import BottomTab from "./BottomTab";
+import OnboardingThree from "../screens/OnboardingThree";
+import OnboardingFour from "../screens/OnboardingFour";
 
 const Stack = createNativeStackNavigator();
 
@@ -15,39 +11,19 @@ export default function NavigationStack() {
   return (
     <Stack.Navigator
       screenOptions={{ headerMode: "false" }}
-      initialRouteName={"LoginScreen"}
+      initialRouteName={"OnBoardingThree"}
     >
       {/* login */}
-      <Stack.Screen
-        options={{ headerShown: false }}
-        name="SplashScreen"
-        component={SplashScreen}
-      />
-      <Stack.Screen
-        options={{ headerShown: false }}
-        name="LoginScreen"
-        component={LoginScreen}
-      />
-      <Stack.Screen
-        options={{ headerShown: false }}
-        name="SignupScreen"
-        component={SignupScreen}
-      />
-      {/* <Stack.Screen
-        options={{ headerShown: false }}
-        name="HomeScreen"
-        component={HomeScreen}
-      /> */}
-      {/* <Stack.Screen
-        options={{ headerShown: false }}
-        name="NewPostScreen"
-        component={NewPostScreen}
-      /> */}
 
       <Stack.Screen
         options={{ headerShown: false }}
-        name="BottomTab"
-        component={BottomTab}
+        name="OnboardingThree"
+        component={OnboardingThree}
+      />
+      <Stack.Screen
+        options={{ headerShown: false }}
+        name="OnboardingFour"
+        component={OnboardingFour}
       />
     </Stack.Navigator>
   );
