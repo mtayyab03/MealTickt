@@ -6,7 +6,13 @@ import { RFPercentage } from "react-native-responsive-fontsize";
 import Colors from "../config/Colors";
 import { FontFamily } from "../config/font";
 
-export default function AppButton({ title, buttonColor }) {
+// Define Props Interface
+interface AppButtonProps {
+  title: string; // Text displayed on the button
+  buttonColor: string; // Background color of the button
+}
+
+const AppButton: React.FC<AppButtonProps> = ({ title, buttonColor }) => {
   return (
     <View
       style={{
@@ -22,7 +28,9 @@ export default function AppButton({ title, buttonColor }) {
       <Text style={styles.buttontext}>{title}</Text>
     </View>
   );
-}
+};
+export default AppButton;
+
 const styles = StyleSheet.create({
   buttontext: {
     color: Colors.black32,

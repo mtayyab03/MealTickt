@@ -7,7 +7,22 @@ import { Feather } from "@expo/vector-icons";
 import Colors from "../config/Colors";
 import { FontFamily } from "../config/font";
 
-export default function SearchField({ title, icon, value, onChangeText }) {
+type FeatherIconNames = keyof typeof Feather.glyphMap;
+
+// Define Props Interface
+interface SearchFieldProps {
+  title: string; // Placeholder text for the TextInput
+  icon: FeatherIconNames; // Valid Feather icon name
+  value: string; // Current value of the TextInput
+  onChangeText: (text: string) => void; // Callback when text changes
+}
+
+const SearchField: React.FC<SearchFieldProps> = ({
+  title,
+  icon,
+  value,
+  onChangeText,
+}) => {
   return (
     <View style={styles.searchmain}>
       <Feather name={icon} size={24} color={Colors.black50} />
@@ -20,12 +35,12 @@ export default function SearchField({ title, icon, value, onChangeText }) {
       />
     </View>
   );
-}
+};
+export default SearchField;
 
 const styles = StyleSheet.create({
   searchmain: {
     width: "90%",
-    backgroundColor: Colors.fieldcolor,
     borderRadius: RFPercentage(1.5),
     borderColor: Colors.stroke,
     height: RFPercentage(5),

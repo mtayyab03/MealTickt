@@ -5,13 +5,19 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import OnboardingThree from "../screens/OnboardingThree";
 import OnboardingFour from "../screens/OnboardingFour";
 
-const Stack = createNativeStackNavigator();
+// Define types for Stack Navigation
+type RootStackParamList = {
+  OnboardingThree: undefined; // No params for OnboardingThree screen
+  OnboardingFour: undefined; // No params for OnboardingFour screen
+};
 
-export default function NavigationStack() {
+const Stack = createNativeStackNavigator<RootStackParamList>();
+
+const NavigationStack: React.FC = () => {
   return (
     <Stack.Navigator
-      screenOptions={{ headerMode: "false" }}
-      initialRouteName={"OnBoardingThree"}
+      initialRouteName="OnboardingThree" // Corrected to match the screen name
+      screenOptions={{ headerShown: false }} // Hides header globally
     >
       {/* login */}
 
@@ -27,4 +33,5 @@ export default function NavigationStack() {
       />
     </Stack.Navigator>
   );
-}
+};
+export default NavigationStack;

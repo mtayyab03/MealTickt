@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { Image, TouchableOpacity, StyleSheet, View, Text } from "react-native";
 import { RFPercentage } from "react-native-responsive-fontsize";
 import { Feather, AntDesign } from "@expo/vector-icons";
@@ -12,10 +12,28 @@ import icons from "../config/icons";
 import Colors from "../config/Colors";
 import { FontFamily } from "../config/font";
 
-const OnboardingThree = ({ navigation }) => {
+// Types
+interface Ingredient {
+  id: number;
+  name: string;
+}
+
+interface Day {
+  id: number;
+  name: string;
+}
+
+interface OnboardingThreeProps {
+  navigation: {
+    navigate: (screen: string) => void;
+  };
+}
+
+const OnboardingThree: React.FC<OnboardingThreeProps> = ({ navigation }) => {
   const [menuid, setmenuid] = useState(1);
-  const [selectedDays, setSelectedDays] = useState([]);
-  const selectIngredient = [
+  const [selectedDays, setSelectedDays] = useState<number[]>([]);
+  const [selectedAllergens, setSelectedAllergens] = useState<string[]>([]);
+  const selectIngredient: Ingredient[] = [
     {
       id: 1,
       name: "ingredient",
@@ -27,7 +45,7 @@ const OnboardingThree = ({ navigation }) => {
   ];
 
   // Array of allergens
-  const allergens = [
+  const allergens: string[] = [
     "milk",
     "eggs",
     "fish",
@@ -38,7 +56,7 @@ const OnboardingThree = ({ navigation }) => {
     "none",
   ];
 
-  const daysSelection = [
+  const daysSelection: Day[] = [
     {
       id: 1,
       name: "mon",
@@ -69,20 +87,19 @@ const OnboardingThree = ({ navigation }) => {
     },
   ];
 
-  // State to track selected allergens
-  const [selectedAllergens, setSelectedAllergens] = useState([]);
-
   // Toggle selection of allergen
-  const handleSelection = (allergen) => {
+  const handleSelection = (allergen: string) => {
     if (selectedAllergens.includes(allergen)) {
-      setSelectedAllergens((prev) => prev.filter((item) => item !== allergen)); // Remove from selection
+      setSelectedAllergens((prev: any) =>
+        prev.filter((item: any) => item !== allergen)
+      ); // Remove from selection
     } else {
       setSelectedAllergens((prev) => [...prev, allergen]); // Add to selection
     }
   };
 
   // Toggle selection of a day
-  const handleDaySelection = (dayId) => {
+  const handleDaySelection = (dayId: number) => {
     if (selectedDays.includes(dayId)) {
       setSelectedDays((prev) => prev.filter((id) => id !== dayId)); // Deselect the day
     } else {
@@ -111,66 +128,36 @@ const OnboardingThree = ({ navigation }) => {
         </Text>
       </View>
 
-      <View style={{ width: "90%" }}>
-        <Text
-          style={{
-            fontFamily: FontFamily.regular,
-            fontSize: RFPercentage(1.7),
-            color: Colors.black50,
-            marginTop: RFPercentage(4),
-          }}
-        >
+      <View style={styles.container90}>
+        <Text style={styles.allergenTitlemain}>
           any allergies we should know about
         </Text>
       </View>
 
       {/* allergic selection */}
-      <View
-        style={{
-          flexDirection: "row",
-          alignItems: "center",
-          width: "90%",
-          flexWrap: "wrap",
-          marginTop: RFPercentage(1),
-        }}
-      >
+      <View style={styles.allergenmainContainer}>
         {allergens.map((allergen, index) => (
           <TouchableOpacity
             key={index}
             activeOpacity={0.7}
             onPress={() => handleSelection(allergen)}
-            style={{
-              paddingHorizontal: RFPercentage(3),
-              paddingVertical: RFPercentage(1.5),
-              alignItems: "center",
-              justifyContent: "center",
-              borderWidth: RFPercentage(0.1),
-              borderColor: Colors.stroke,
-              marginTop: RFPercentage(1.5),
-              borderRadius: RFPercentage(3),
-              flexDirection: "row",
-              marginRight: RFPercentage(1.5),
-              backgroundColor: selectedAllergens.includes(allergen)
-                ? Colors.mildyellow
-                : "transparent", // Change background color
-            }}
+            style={[
+              styles.allergenButton,
+              {
+                backgroundColor: selectedAllergens.includes(allergen)
+                  ? Colors.mildyellow
+                  : "transparent", // Change background color
+              },
+            ]}
           >
-            <Text
-              style={{
-                fontFamily: FontFamily.regular,
-                fontSize: RFPercentage(1.5),
-                color: Colors.black50,
-              }}
-            >
-              {allergen}
-            </Text>
+            <Text style={styles.allergenText}>{allergen}</Text>
             {selectedAllergens.includes(allergen) && (
               <TouchableOpacity
                 activeOpacity={0.7}
                 onPress={() => handleSelection(allergen)}
               >
                 <AntDesign
-                  style={{ marginLeft: RFPercentage(1.3) }}
+                  style={styles.circleicon}
                   name="closecircleo"
                   size={14}
                   color={Colors.blacky}
@@ -183,25 +170,11 @@ const OnboardingThree = ({ navigation }) => {
 
       {/* radio */}
 
-      <View style={{ width: "90%", marginTop: RFPercentage(3) }}>
-        <Text
-          style={{
-            fontFamily: FontFamily.regular,
-            fontSize: RFPercentage(1.7),
-            color: Colors.black50,
-          }}
-        >
-          ingredient measurement
-        </Text>
+      <View style={styles.radioTitle}>
+        <Text style={styles.ingredientTitle}>ingredient measurement</Text>
 
-        {/* Gender */}
-        <View
-          style={{
-            width: "90%",
-            flexDirection: "row",
-            marginTop: RFPercentage(2),
-          }}
-        >
+        {/* igredient */}
+        <View style={styles.radioContainner}>
           {selectIngredient.map((item) => (
             <TouchableOpacity
               activeOpacity={0.7}
@@ -215,58 +188,19 @@ const OnboardingThree = ({ navigation }) => {
                 marginLeft: item.id === 2 ? RFPercentage(2) : null,
               }}
             >
-              <View
-                style={{
-                  width: RFPercentage(2),
-                  height: RFPercentage(2),
-                  borderWidth: RFPercentage(0.2),
-                  borderColor: Colors.stroke,
-                  borderRadius: RFPercentage(3),
-                  alignItems: "center",
-                  justifyContent: "center",
-                }}
-              >
+              <View style={styles.radioButtonOuter}>
                 {menuid === item.id ? (
-                  <View
-                    style={{
-                      width: RFPercentage(1.2),
-                      height: RFPercentage(1.2),
-                      borderRadius: RFPercentage(3),
-                      backgroundColor: Colors.stroke,
-                    }}
-                  />
+                  <View style={styles.radioButtonInner} />
                 ) : null}
               </View>
-              <Text
-                style={{
-                  marginLeft: RFPercentage(0.5),
-                  color: Colors.blacky,
-                  fontFamily: FontFamily.regular,
-                  fontSize: RFPercentage(1.5),
-                }}
-              >
-                {item.name}
-              </Text>
+              <Text style={styles.ingredientText}>{item.name}</Text>
             </TouchableOpacity>
           ))}
         </View>
       </View>
 
-      <View
-        style={{
-          width: "90%",
-          marginTop: RFPercentage(4),
-          justifyContent: "space-between",
-          flexDirection: "row",
-        }}
-      >
-        <Text
-          style={{
-            fontFamily: FontFamily.regular,
-            fontSize: RFPercentage(1.7),
-            color: Colors.black50,
-          }}
-        >
+      <View style={styles.dietContainer}>
+        <Text style={styles.dietText}>
           do you want to skip any diet any days?
         </Text>
 
@@ -274,43 +208,22 @@ const OnboardingThree = ({ navigation }) => {
       </View>
 
       {/* Days Selection */}
-      <View
-        style={{
-          flexDirection: "row",
-          alignItems: "center",
-          width: "90%",
-          marginTop: RFPercentage(1.5),
-        }}
-      >
+      <View style={styles.daysContainer}>
         {daysSelection.map((item, index) => (
           <TouchableOpacity
             key={index}
             activeOpacity={0.7}
             onPress={() => handleDaySelection(item.id)}
-            style={{
-              width: RFPercentage(5.3),
-              height: RFPercentage(6),
-              alignItems: "center",
-              justifyContent: "center",
-              borderWidth: RFPercentage(0.1),
-              borderColor: Colors.stroke,
-              borderRadius: RFPercentage(1),
-              flexDirection: "row",
-              marginRight: RFPercentage(0.8),
-              backgroundColor: selectedDays.includes(item.id)
-                ? Colors.mildyellow
-                : "transparent",
-            }}
+            style={[
+              styles.daysButton,
+              {
+                backgroundColor: selectedDays.includes(item.id)
+                  ? Colors.mildyellow
+                  : "transparent",
+              },
+            ]}
           >
-            <Text
-              style={{
-                fontFamily: FontFamily.regular,
-                fontSize: RFPercentage(1.5),
-                color: Colors.black50,
-              }}
-            >
-              {item.name}
-            </Text>
+            <Text style={styles.daysText}>{item.name}</Text>
           </TouchableOpacity>
         ))}
       </View>
@@ -367,7 +280,7 @@ const styles = StyleSheet.create({
   },
   title: {
     fontFamily: FontFamily.bold,
-    fontSize: RFPercentage(2.5),
+    fontSize: RFPercentage(2.8),
     color: Colors.black32,
     marginTop: RFPercentage(4),
   },
@@ -377,5 +290,102 @@ const styles = StyleSheet.create({
     fontSize: RFPercentage(1.7),
     color: Colors.black50,
     marginTop: RFPercentage(3),
+  },
+  daysText: {
+    fontFamily: FontFamily.regular,
+    fontSize: RFPercentage(1.5),
+    color: Colors.black50,
+  },
+  daysContainer: {
+    flexDirection: "row",
+    alignItems: "center",
+    width: "90%",
+    marginTop: RFPercentage(1.5),
+  },
+  daysButton: {
+    width: RFPercentage(5.3),
+    height: RFPercentage(6),
+    alignItems: "center",
+    justifyContent: "center",
+    borderWidth: RFPercentage(0.1),
+    borderColor: Colors.stroke,
+    borderRadius: RFPercentage(1),
+    flexDirection: "row",
+    marginRight: RFPercentage(0.8),
+  },
+  dietText: {
+    fontFamily: FontFamily.regular,
+    fontSize: RFPercentage(1.7),
+    color: Colors.black50,
+  },
+  dietContainer: {
+    width: "90%",
+    marginTop: RFPercentage(4),
+    justifyContent: "space-between",
+    flexDirection: "row",
+  },
+  ingredientText: {
+    marginLeft: RFPercentage(0.5),
+    color: Colors.blacky,
+    fontFamily: FontFamily.regular,
+    fontSize: RFPercentage(1.5),
+  },
+  allergenText: {
+    fontFamily: FontFamily.regular,
+    fontSize: RFPercentage(1.5),
+    color: Colors.black50,
+  },
+  allergenButton: {
+    paddingHorizontal: RFPercentage(3),
+    paddingVertical: RFPercentage(1.5),
+    alignItems: "center",
+    justifyContent: "center",
+    borderWidth: RFPercentage(0.1),
+    borderColor: Colors.stroke,
+    marginTop: RFPercentage(1.2),
+    borderRadius: RFPercentage(3),
+    flexDirection: "row",
+    marginRight: RFPercentage(1.2),
+  },
+  allergenmainContainer: {
+    flexDirection: "row",
+    alignItems: "center",
+    width: "90%",
+    flexWrap: "wrap",
+    marginTop: RFPercentage(1),
+  },
+  ingredientTitle: {
+    fontFamily: FontFamily.regular,
+    fontSize: RFPercentage(1.7),
+    color: Colors.black50,
+  },
+  radioTitle: { width: "90%", marginTop: RFPercentage(3) },
+  container90: { width: "90%" },
+  allergenTitlemain: {
+    fontFamily: FontFamily.regular,
+    fontSize: RFPercentage(1.7),
+    color: Colors.black50,
+    marginTop: RFPercentage(4),
+  },
+  radioButtonInner: {
+    width: RFPercentage(1.2),
+    height: RFPercentage(1.2),
+    borderRadius: RFPercentage(3),
+    backgroundColor: Colors.stroke,
+  },
+  circleicon: { marginLeft: RFPercentage(1.3) },
+  radioButtonOuter: {
+    width: RFPercentage(2),
+    height: RFPercentage(2),
+    borderWidth: RFPercentage(0.2),
+    borderColor: Colors.stroke,
+    borderRadius: RFPercentage(3),
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  radioContainner: {
+    width: "90%",
+    flexDirection: "row",
+    marginTop: RFPercentage(2),
   },
 });

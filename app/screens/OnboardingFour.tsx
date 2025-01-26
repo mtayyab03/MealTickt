@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import {
   Image,
   TouchableOpacity,
@@ -8,7 +8,7 @@ import {
   ScrollView,
 } from "react-native";
 import { RFPercentage } from "react-native-responsive-fontsize";
-import { Feather, AntDesign } from "@expo/vector-icons";
+import { AntDesign } from "@expo/vector-icons";
 
 //Components
 import Screen from "../components/Screen";
@@ -20,7 +20,7 @@ import icons from "../config/icons";
 import Colors from "../config/Colors";
 import { FontFamily } from "../config/font";
 
-const OnboardingFour = ({ navigation }) => {
+const OnboardingFour = ({ navigation }: any) => {
   const avoidFoods = [
     { id: 1, name: "apples" },
     { id: 2, name: "apricots" },
@@ -38,7 +38,7 @@ const OnboardingFour = ({ navigation }) => {
   const [searchQuery, setSearchQuery] = useState("");
   const [filteredFoods, setFilteredFoods] = useState(avoidFoods);
 
-  const handleSearch = (text) => {
+  const handleSearch = (text: string) => {
     setSearchQuery(text);
     if (text === "") {
       setFilteredFoods(avoidFoods); // Reset list when query is empty
@@ -70,16 +70,7 @@ const OnboardingFour = ({ navigation }) => {
       <Text style={styles.title}>next to last question</Text>
 
       <View style={styles.textContainer}>
-        <Text
-          style={{
-            fontFamily: FontFamily.regular,
-            fontSize: RFPercentage(1.7),
-            color: Colors.black50,
-            marginTop: RFPercentage(4),
-          }}
-        >
-          any foods you'd like to avoid?
-        </Text>
+        <Text style={styles.avoidText}>any foods you'd like to avoid?</Text>
       </View>
 
       {/* search field */}
@@ -93,11 +84,11 @@ const OnboardingFour = ({ navigation }) => {
       {/* Avoid Foods List */}
       <ScrollView
         showsVerticalScrollIndicator={true}
-        style={{ width: "90%", flexGrow: 0, height: RFPercentage(45) }}
+        style={styles.scrollStyle}
       >
         {filteredFoods.length > 0 ? (
           filteredFoods.map((item) => (
-            <View key={item.id} style={styles.foodItem}>
+            <View key={item.id}>
               <Text style={styles.foodText}>{item.name}</Text>
             </View>
           ))
@@ -158,7 +149,7 @@ const styles = StyleSheet.create({
   },
   title: {
     fontFamily: FontFamily.bold,
-    fontSize: RFPercentage(2.5),
+    fontSize: RFPercentage(2.8),
     color: Colors.black32,
     marginTop: RFPercentage(4),
   },
@@ -177,4 +168,11 @@ const styles = StyleSheet.create({
     textAlign: "center",
     marginTop: RFPercentage(2),
   },
+  avoidText: {
+    fontFamily: FontFamily.regular,
+    fontSize: RFPercentage(1.7),
+    color: Colors.black50,
+    marginTop: RFPercentage(4),
+  },
+  scrollStyle: { width: "90%", flexGrow: 0, height: RFPercentage(45) },
 });
